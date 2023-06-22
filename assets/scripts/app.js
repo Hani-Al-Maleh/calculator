@@ -6,7 +6,6 @@ function getUserNumberInput() {
   return +userInput.value;
 }
 
-
 // taking the information operation that happend and stored in object and then push it towards an array
 
 function logInfo(signOperation, preNum, enteredNumber, result) {
@@ -26,54 +25,70 @@ function descriptionCalc(operator, op1, op2) {
   outputResult(null, `${descriptionCalculation}`);
 }
 
+// determine the type of the calculation
+
+function typeOfCalculation(operationType) {
+  const enteredNumber = getUserNumberInput();
+  if (
+    (operationType !== 'ADD' &&
+      operationType !== 'SUBTRACT' &&
+      operationType !== 'MULTIPLICATION' &&
+      operationType !== 'DIVISION' &&
+      operationType !== 'REMINDATION') ||
+    !enteredNumber
+  ) {
+    return;
+  }
+  const previousValue = currentValue;
+  let signType;
+  if (operationType === 'ADD') {
+    currentValue += enteredNumber;
+    signType = '+';
+  } else if (operationType === 'SUBTRACT') {
+    currentValue -= enteredNumber;
+    signType = '-';
+  } else if (operationType === 'MULTIPLICATION') {
+    currentValue *= enteredNumber;
+    signType = '*';
+  } else if (operationType === 'DIVISION') {
+    currentValue /= enteredNumber;
+    signType = '/';
+  } else if (operationType === 'REMINDATION') {
+    currentValue %= enteredNumber;
+    signType = '%';
+  }
+  descriptionCalc(signType, previousValue, enteredNumber);
+  logInfo(operationType, previousValue, enteredNumber, currentValue);
+}
+
 // Add function
 
 function add() {
-  const enteredNumber = getUserNumberInput();
-  descriptionCalc('+', currentValue, enteredNumber);
-  const previousValue = currentValue;
-  currentValue += enteredNumber;
-  logInfo('ADD', previousValue, enteredNumber, currentValue);
+  typeOfCalculation('ADD');
 }
 
 // subtract function
 
 function subtract() {
-  const enteredNumber = getUserNumberInput();
-  descriptionCalc('-', currentValue, enteredNumber);
-  const previousValue = currentValue;
-  currentValue -= enteredNumber;
-  logInfo('Subtract', previousValue, enteredNumber, currentValue);
+  typeOfCalculation('SUBTRACT');
 }
 
 // multiplication function
 
 function multiply() {
-  const enteredNumber = getUserNumberInput();
-  descriptionCalc('*', currentValue, enteredNumber);
-  const previousValue = currentValue;
-  currentValue *= enteredNumber;
-  logInfo('multiplication', previousValue, enteredNumber, currentValue);
+  typeOfCalculation('MULTIPLICATION');
 }
 
 // divition function
 
 function divide() {
-  const enteredNumber = getUserNumberInput();
-  descriptionCalc('/', currentValue, enteredNumber);
-  const previousValue = currentValue;
-  currentValue /= enteredNumber;
-  logInfo('Division', previousValue, enteredNumber, currentValue);
+  typeOfCalculation('DIVISION');
 }
 
 // remindation function
 
 function remind() {
-  const enteredNumber = getUserNumberInput();
-  descriptionCalc('%', currentValue, enteredNumber);
-  const previousValue = currentValue;
-  currentValue %= enteredNumber;
-  logInfo('Remindation', previousValue, enteredNumber, currentValue);
+  typeOfCalculation('REMINDATION');
 }
 // equalition function
 
